@@ -11,8 +11,7 @@ class MessageTemplates:
     def __init__(self, template_dir: str = "./templates"):
         self.env = jinja2.Environment(  # noqa: S701
             loader=jinja2.FileSystemLoader(template_dir),
-            autoescape=jinja2.select_autoescape(disabled_extensions=("msg",), default=False, default_for_string=False),
-        )
+            autoescape=True)
 
     def render(self, template_name: str, **kwargs: typing.Any):
         template = self.env.get_template(template_name)
