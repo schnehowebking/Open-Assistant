@@ -114,7 +114,7 @@ class MTNoteGenerationDataset(datasets.GeneratorBasedBuilder):
             key = 0
             with open(filepath[split], "r", encoding="utf8") as data:
                 while True:
-                    line = data.readline()
+                    line = data.readline(5_000_000)
                     if not line:
                         return
                     yield key, json.loads(line)
