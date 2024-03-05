@@ -41,7 +41,7 @@ def get_uid_by_url_token(url_token: str) -> str:
     }
 
     url = "https://api.zhihu.com/people/" + url_token
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=60)
     uid = response.json()["id"]
     return uid
 
@@ -100,7 +100,7 @@ def get_user_answers(url_token: str, max_count: int = 100000) -> pd.DataFrame:
             ("offset", f"{offset}"),
         )
 
-        response = requests.get(url, headers=headers, params=params)
+        response = requests.get(url, headers=headers, params=params, timeout=60)
 
         if response.json().get("paging") is None:
             return pd.DataFrame(columns=operations.keys())
@@ -148,7 +148,7 @@ def get_answer_content(qid: str, aid) -> str:
         "Host": "www.zhihu.com",
     }
     url = f"https://www.zhihu.com/question/{qid}/answer/{aid}"
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=60)
 
     soup = BeautifulSoup(response.text, "html.parser")
     content = " ".join([p.text.strip() for p in soup.find_all("p")])

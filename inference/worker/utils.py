@@ -133,7 +133,7 @@ class HttpClient(pydantic.BaseModel):
             return None
 
     def get(self, path: str, **kwargs):
-        return requests.get(self.base_url + path, auth=self.auth, **kwargs)
+        return requests.get(self.base_url + path, auth=self.auth, **kwargs, timeout=60)
 
     def post(self, path: str, **kwargs):
-        return requests.post(self.base_url + path, auth=self.auth, **kwargs)
+        return requests.post(self.base_url + path, auth=self.auth, **kwargs, timeout=60)

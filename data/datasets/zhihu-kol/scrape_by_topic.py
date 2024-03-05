@@ -46,7 +46,7 @@ def get_answer_content(qid: int, aid: int, question_str: str) -> str:
         "Host": "www.zhihu.com",
     }
     url = f"https://www.zhihu.com/question/{qid}/answer/{aid}"
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=60)
 
     soup = BeautifulSoup(response.text, "html.parser")
     content = " ".join([p.text.strip() for p in soup.find_all("p")])

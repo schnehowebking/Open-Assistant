@@ -33,7 +33,7 @@ def load_oig_file(
     # download file if not cached
     if not local_path.exists() or local_path.stat().st_size == 0 or no_cache:
         print(f"downloading {source_url} to {local_path}")
-        r = requests.get(source_url, stream=True)
+        r = requests.get(source_url, stream=True, timeout=60)
         with local_path.open(mode="wb") as fd:
             for chunk in r.iter_content(chunk_size=1024 * 1024):
                 fd.write(chunk)
