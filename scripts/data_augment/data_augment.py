@@ -144,7 +144,7 @@ class StackExchangeBuilder(DataAugmenter):
         )
 
     def get_all_filenames(self):
-        response = requests.get("https://archive.org/download/stackexchange")
+        response = requests.get("https://archive.org/download/stackexchange", timeout=60)
         if response.ok:
             soup = bs(response.content, "html.parser")
             table = soup.find("table")
@@ -245,7 +245,7 @@ class StackExchangeBuilder(DataAugmenter):
 
         xml_posts_path = urls.get(dataset_name)
 
-        response = requests.get(xml_posts_path)
+        response = requests.get(xml_posts_path, timeout=60)
         df = self.xml_to_df(response)
         df = self.filter(df)
 

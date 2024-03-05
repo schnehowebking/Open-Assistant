@@ -9,7 +9,7 @@ FILE_PATH = "databricks_dolly_15k.jsonl"
 
 
 def download_data(url: str, destination: str):
-    response = requests.get(url, stream=True)
+    response = requests.get(url, stream=True, timeout=60)
 
     with open(destination, "wb") as handle:
         for data in response.iter_content():
